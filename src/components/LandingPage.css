@@ -1,0 +1,24 @@
+
+.landing-page {
+    text-align: center;
+    padding: 50px;
+  }
+  
+  .landing-page h1 {
+    color: #4CAF50;
+  }
+  
+  .landing-page p {
+    font-size: 18px;
+    margin: 20px 0;
+  }
+  
+  .landing-page button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  

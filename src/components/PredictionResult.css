@@ -1,0 +1,13 @@
+.result-section {
+    text-align: center;
+    padding: 50px;
+  }
+  
+  .result-section h2 {
+    color: #4CAF50;
+  }
+  
+  .result-section p {
+    font-size: 18px;
+  }
+  
