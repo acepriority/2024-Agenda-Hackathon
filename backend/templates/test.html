@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        font-family: Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+        margin: 0;
+        background-color: #f4f4f4;
+    }
+
+    .upload-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .upload-section {
+        margin: 1rem;
+    }
+
+    .drag-area {
+        width: 50%;
+        aspect-ratio: 1 / 0.3;
+        padding: 1rem;
+        border: 2px dashed #ccc;
+        border-radius: 16px;
+        text-align: center;
+        background-color: #ffffff;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+
+    .drag-area:hover {
+        background-color: #f0f8ff;
+    }
+
+    .area-heading h3, .area-sub-heading h4 {
+        margin: 0;
+        padding: 0;
+    }
+
+    .area-sub-heading h4 {
+        color: #6a6a6a;
+        font-weight: normal;
+        margin-bottom: 1rem;
+    }
+
+    .area-heading {
+        margin-bottom: 2rem;
+    }
+
+    .preview-area {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .image-upload-container {
+        width: 300px;
+        background-color: #ffffff;
+        padding: 0.5rem;
+        border-radius: 16px;
+        box-shadow: 1px 0px 1px 1px rgba(0, 0, 0, 0.1);
+    }
+
+    .upload-content {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .upload-progress-bar-container {
+        width: 100%;
+        height: 8px;
+        background-color: #f3f3f3;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+    }
+
+    .upload-progress-bar {
+        width: 0%;
+        height: 100%;
+        background-color: #ff9500;
+        border-radius: 10px;
+        transition: width 0.3s;
+    }
+
+    .image-icon .material-symbols-outlined {
+        font-size: 40px;
+    }
+
+    .file-info {
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .file-details {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .file-details h4, .file-size h4,
+    .action-button button h4{
+        margin: 0;
+        padding: 0;
+        font-weight: bold;
+        font-size: small;
+    }
+
+    .upload-status {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .upload-status h4,
+    .file-size h4 {
+        color: gray;
+    }
+
+    .action-button > button:nth-child(1) {
+        padding: 0.4rem;
+        border-radius: 6px;
+        border: none;
+        background-color: #f6cdcd;
+        color: #fd0707;
+        cursor: pointer;
+    }
+
+    .action-button > button:nth-child(2) {
+        padding: 0.4rem;
+        border-radius: 6px;
+        border: none;
+        background-color: #ddf6cd;
+        color: #008b00;
+        cursor: pointer;
+    }
+
+    .completed-icon {
+        color: green;
+    }
+</style>
+<body>
+    <div class="upload-section">
+        <div class="drag-area" id="drag-area">
+            <div class="upload-icon">
+                <span class="material-symbols-outlined">
+                    upload_file
+                </span>
+            </div>
+            <div class="drag-area-text">
+                <div class="area-heading">
+                    <h3>Create or Import a custom classification</h3>
+                </div>
+                <div class="area-sub-headings">
+                    <h4>Maximum file size: 50 MB</h4>
+                    <h4>Supported format: .JPEG/.JPG/.PNG/.SVG</h4>
+                </div>
+            </div>
+            <input type="file" id="file-input" hidden>
+        </div>
+    </div>
+
+    <div class="preview-area" id="preview-area"></div>
+
+    <script>
+        const dragArea = document.getElementById("drag-area");
+        const fileInput = document.getElementById("file-input");
+        const previewArea = document.getElementById("preview-area");
+
+        dragArea.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            dragArea.classList.add("hover");
+        });
+
+        dragArea.addEventListener("dragleave", () => {
+            dragArea.classList.remove("hover");
+        });
+
+        dragArea.addEventListener("drop", (e) => {
+            e.preventDefault();
+            dragArea.classList.remove("hover");
+
+            const files = e.dataTransfer.files;
+            if (files.length) {
+                handleFiles(files);
+            }
+        });
+
+        dragArea.addEventListener("click", () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener("change", () => {
+            const files = fileInput.files;
+            if (files.length) {
+                handleFiles(files);
+            }
+        });
+
+        let selectedFile = null;
+
+        function handleFiles(files) {
+            const file = files[0];
+            selectedFile = file;
+        
+            if (file && file.size < 50 * 1024 * 1024) {
+                const fileName = file.name;
+                const fileSize = (file.size / 1024 / 1024).toFixed(2);
+                const uploadContainer = document.createElement('div');
+                uploadContainer.classList.add('image-upload-container');
+                uploadContainer.innerHTML = `
+                    <div class="upload-content">
+                        <div class="image-icon">
+                            <span class="material-symbols-outlined">image</span>
+                        </div>
+                        <div class="file-info">
+                            <div class="file-details">
+                                <div class="file-name"><h4>${fileName}</h4></div>
+                                <div class="upload-status"><h4>0%</h4></div>
+                            </div>
+                            <div class="upload-progress-bar-container">
+                                <div class="upload-progress-bar"></div>
+                            </div>
+                            <div class="file-size">
+                                <h4>0 MB of ${fileSize} MB</h4>
+                            </div>
+                            <div class="action-buttons" style="display: none;">
+                                <div class="action-button">
+                                    <button>Remove</button>
+                                    <button>Send</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+        
+                previewArea.innerHTML = '';
+                previewArea.appendChild(uploadContainer);
+        
+                simulateUpload(uploadContainer, fileSize);
+            } else {
+                alert('File is too large or unsupported.');
+            }
+        }
+        
+        function simulateUpload(uploadContainer, fileSize) {
+            const progressBar = uploadContainer.querySelector('.upload-progress-bar');
+            const uploadStatus = uploadContainer.querySelector('.upload-status h4');
+            const fileSizeText = uploadContainer.querySelector('.file-size h4');
+            const removeButtonContainer = uploadContainer.querySelector('.action-buttons');
+        
+            let progress = 0;
+            const interval = setInterval(() => {
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    uploadStatus.innerHTML = `<i class="fa fa-check-circle completed-icon" aria-hidden="true"></i> Completed`;
+                    fileSizeText.textContent = `${fileSize} MB of ${fileSize} MB`;
+                    progressBar.style.width = `100%`;
+                    progressBar.style.backgroundColor = 'green';
+        
+                    removeButtonContainer.style.display = 'block';
+        
+                    const removeButton = uploadContainer.querySelector('.action-button > button:nth-child(1)');
+                    removeButton.addEventListener('click', () => {
+                        previewArea.innerHTML = '';
+                        selectedFile = null;
+                    });
+        
+                    const sendButton = uploadContainer.querySelector('.action-button > button:nth-child(2)');
+                    sendButton.addEventListener('click', uploadFileToServer);
+                } else {
+                    progress += 5;
+                    progressBar.style.width = `${progress}%`;
+                    uploadStatus.textContent = `${progress}%`;
+                    fileSizeText.textContent = `${(progress / 100 * fileSize).toFixed(2)} MB of ${fileSize} MB`;
+                }
+            }, 300);
+        }
+        
+        function uploadFileToServer() {
+            if (!selectedFile) {
+                alert("No file to upload!");
+                return;
+            }
+        
+            const formData = new FormData();
+            formData.append('file', selectedFile);
+        
+            fetch("{% url 'upload_file' %}", {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': getCSRFToken(),
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('File successfully uploaded:', data);
+                displayResult(data);
+            })
+            .catch(error => {
+                console.error('Error uploading file:', error);
+            });
+        }
+
+        function displayResult(data) {
+            const resultPageUrl = "{% url 'result_page' %}?predicted_class=" + data.predicted_class + "&probability=" + data.probability;
+            window.location.href = resultPageUrl;
+        }
+        
+        function getCSRFToken() {
+            let cookieValue = null;
+            const name = 'csrftoken';
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+</body>
+</html>
