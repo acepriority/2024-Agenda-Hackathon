@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crop Disease Predictor</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Landing Page -->
+  <section id="landing-page" class="landing-page">
+    <div class="landing-content">
+      <h1>Smart Crop Disease Predictor</h1>
+      <p>Revolutionize the way you manage crop health with AI-powered disease detection. Just upload a picture or capture an image, and let our system detect crop diseases instantly.</p>
+      <button id="get-started-btn" class="get-started-btn">
+        <i class="fas fa-leaf"></i> Get Started
+      </button>
+    </div>
+  </section>
+
+  <!-- File Upload and Camera Section -->
+  <section id="upload-section" class="upload-section" style="display: none;">
+    <div class="upload-container">
+      <h2>Upload and Capture Files</h2>
+
+      <div class="drag-area" id="drag-area">
+        <i class="fas fa-upload"></i>
+        <p>Drag & Drop or Click to Upload</p>
+        <input type="file" id="file-input" hidden multiple accept="image/jpeg, image/png, image/svg+xml" />
+      </div>
+
+      <div class="preview-section" id="preview-section"></div>
+
+      <div class="camera-section">
+        <button class="camera-btn" id="start-camera">
+          <i class="fas fa-camera"></i> Take a Picture
+        </button>
+        <div class="camera-preview" id="camera-preview" style="display: none;">
+          <video id="video" width="100%" height="300px" autoplay muted></video>
+          <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
+          <button class="capture-btn" id="capture-image">
+            <i class="fas fa-camera"></i> Capture Image
+          </button>
+          <button class="stop-camera-btn" id="stop-camera">
+            <i class="fas fa-stop"></i> Stop Camera
+          </button>
+        </div>
+        <p class="camera-error" id="camera-error" style="display: none;">Camera access denied or unavailable.</p>
+      </div>
+
+      <div class="progress-container" id="progress-container" style="display: none;">
+        <div class="progress-bar" id="progress-bar">0%</div>
+      </div>
+
+      <button class="upload-btn" id="upload-btn" style="display: none;">
+        <i class="fas fa-upload"></i> Upload Files
+      </button>
+
+      <p class="upload-success" id="upload-success" style="display: none;">Upload completed successfully!</p>
+    </div>
+  </section>
+
+  <!-- Results Section (hidden initially) -->
+  <section id="results-section" class="results-section" style="display: none;">
+    <div class="results-container">
+      <h2>Disease Prediction Results</h2>
+
+      <!-- Image and Probability -->
+      <div class="result-item">
+        <div class="disease-image">
+          <img id="disease-img" src="" alt="Disease Image" />
+        </div>
+        <div class="disease-info">
+          <h3 id="disease-name">Disease Name</h3>
+          <p id="disease-probability">Probability: 0%</p>
+        </div>
+      </div>
+
+      <!-- Disease Description -->
+      <div class="disease-description">
+        <h3>Description</h3>
+        <p id="disease-description">This is where the disease description will go. It provides details about the disease, its causes, and how it affects crops.</p>
+      </div>
+
+      <!-- Symptoms -->
+      <div class="symptoms-section">
+        <h3>Symptoms</h3>
+        <table>
+          <tbody id="symptoms-list">
+            <tr>
+              <td>1.</td>
+              <td>Symptom 1 description goes here.</td>
+            </tr>
+            <tr>
+              <td>2.</td>
+              <td>Symptom 2 description goes here.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Treatment Guidelines -->
+      <div class="treatment-section">
+        <h3>Treatment Guidelines</h3>
+        <table>
+          <tbody id="treatment-list">
+            <tr>
+              <td>1.</td>
+              <td>Treatment guideline 1 description goes here.</td>
+            </tr>
+            <tr>
+              <td>2.</td>
+              <td>Treatment guideline 2 description goes here.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <script src="index.js"></script>
+</body>
+</html>

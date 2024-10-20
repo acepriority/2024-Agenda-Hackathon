@@ -1,0 +1,267 @@
+/* Landing Page */
+.landing-page {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #68b12f, #497d2f);
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .landing-page h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+  
+  .landing-page p {
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto 40px;
+  }
+  
+  .get-started-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  .get-started-btn i {
+    margin-right: 10px;
+  }
+  
+  .get-started-btn:hover {
+    background-color: #218838;
+  }
+  
+  /* Upload and Camera Section (copied from your previous CSS) */
+  .upload-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 12px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .upload-container h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .drag-area {
+    padding: 30px;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  
+  .drag-area i {
+    font-size: 2.5rem;
+    color: #007bff;
+  }
+  
+  .drag-area p {
+    color: #666;
+    font-size: 1rem;
+    margin-top: 10px;
+  }
+  
+  .camera-btn, .capture-btn, .stop-camera-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 10px;
+    display: inline-block;
+    transition: background-color 0.3s;
+  }
+  
+  .camera-btn i, .capture-btn i, .stop-camera-btn i {
+    margin-right: 5px;
+  }
+  
+  .camera-btn:hover, .capture-btn:hover, .stop-camera-btn:hover {
+    background-color: #218838;
+  }
+  
+  .preview-section {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  
+  .preview-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+
+  .preview-item {
+    position: relative;
+    margin: 10px;
+    display: inline-block;
+}
+  
+  .remove-file-btn {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 0.8rem;
+    padding: 5px;
+  }
+
+  .remove-file-btn i {
+    font-size: 1.2rem;
+}
+  
+  .progress-container {
+    margin: 20px 0;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    height: 30px;
+  }
+  
+  .progress-bar {
+    height: 100%;
+    background-color: #007bff;
+    color: white;
+    line-height: 30px;
+    text-align: center;
+    border-radius: 10px;
+    transition: width 0.4s;
+  }
+  
+  .upload-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+  }
+  
+  .upload-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .upload-success {
+    color: #28a745;
+    font-size: 1rem;
+    margin-top: 15px;
+  }
+  
+  /* Results Section */
+.results-section {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .results-container {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  
+  .result-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .disease-image img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .disease-info {
+    flex-grow: 1;
+    margin-left: 20px;
+  }
+  
+  .disease-info h3 {
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  .disease-info p {
+    font-size: 1.2rem;
+    color: #666;
+  }
+  
+  /* Disease Description */
+  .disease-description {
+    margin-bottom: 20px;
+  }
+  
+  .disease-description h3 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+  }
+  
+  /* Symptoms Table */
+  .symptoms-section table, .treatment-section table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .symptoms-section td, .treatment-section td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .symptoms-section td:first-child, .treatment-section td:first-child {
+    width: 40px;
+    font-weight: bold;
+  }
+  
+  .symptoms-section td:last-child, .treatment-section td:last-child {
+    text-align: left;
+  }
+  
+  /* Treatment Guidelines */
+  .treatment-section {
+    margin-top: 20px;
+  }
+  
+  .treatment-section h3 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+  }
+  
