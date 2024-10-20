@@ -3,6 +3,8 @@ from django.shortcuts import render, get_object_or_404
 from django.views import View
 from django.apps import apps
 import requests
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 
 
 class Capitalization:
@@ -15,6 +17,7 @@ class Home(View):
         return render(request, 'test.html', {})
 
 
+@method_decorator(csrf_exempt, name='dispatch')
 class RetrieveImage(View):
     def post(self, request):
         image = request.FILES.get('file')
@@ -102,4 +105,3 @@ class ResultView(View):
             'symptoms': [symptom.symptom for symptom in query_model['symptoms']],
             'treatment_guidelines': [guideline.guideline for guideline in query_model['treatment_guidelines']],
         })
-
